@@ -5,17 +5,16 @@ class Node{
 
     constructor(value) {
         this.value = value;
-        this.next=null
+        this.next = null;
     }
 }
-
 
 
 class linkedList{
 
     constructor() {
         this.head = null;
-        this.size=0
+        this.size = 0;
     }
 
     isEmpty() {
@@ -27,38 +26,43 @@ class linkedList{
     }
 
     prepend(value) {
-        const node = new Node(value)
-        
+        const node = new Node(value);
         if (this.isEmpty()) {
             this.head = node;
-        } else {
+        }
+        else {
             node.next = this.head;
-            this.head = node;
+            this.head=node
         }
         this.size++
     }
 
+
     print() {
         if (this.isEmpty()) {
-            console.log("the list is empty")
+            console.log("This is an empty list")
         } else {
-            
             let curr = this.head;
             let listValue = "";
             while (curr) {
-                listValue += `${curr.value} `
-                curr = curr.next;
+                listValue += `${curr.value} `;
+                curr=curr.next
             }
+
             console.log(listValue)
         }
     }
 }
 
 
-const obj1 = new linkedList()
 
-obj1.prepend(1)
-obj1.prepend(20)
-obj1.prepend(500)
 
-obj1.print()
+const list = new linkedList()
+
+list.prepend(10)
+list.prepend(90)
+list.prepend(123)
+list.prepend(1)
+
+list.print()
+

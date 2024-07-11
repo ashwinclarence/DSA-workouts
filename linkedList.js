@@ -25,6 +25,7 @@ class linkedList {
         return this.size
     }
 
+    // insertion at the beginning of the linked list has constant time complexity O(1)
     // add node at the start of the linked list 
     prepend(value) {
         const node = new Node(value);
@@ -55,6 +56,7 @@ class linkedList {
         }
     }
 
+    // insert a node at the end has linear time complexity O(n)
     // insert the node at the end of the linked list
     append(value) {
         const node = new Node(value)
@@ -92,6 +94,61 @@ class linkedList {
             this.size++;
         }
     }
+
+    // remove from the given index
+    remove(index) {
+        if (index < 0 || index > this.size) {
+            console.log("The given index is invalid")
+            return null
+        }
+
+        if (index === 0) {
+            let curr = this.head;
+            this.head = curr.next;
+            this.size--;
+            return curr.value
+        }
+
+        let curr = this.head;
+        for (let i = 0; i < index - 1; i++){
+            curr=curr.next
+        }
+        let newNext = curr.next;
+        curr.next = newNext.next;
+        this.size--;
+        return newNext.value;
+    }
+
+    // remove based on the value
+    removeValue(value) {
+        if (this.isEmpty()) {
+            console.log("Array is empty no more elements to remove")
+            return 
+        }
+       
+        if (this.head.value===value) {
+            this.head = this.head.next;
+            this.size--;
+            console.log("Node removed")
+            return value
+        }
+
+        let prev = this.head;
+        while (prev.next && prev.next.value != value) {
+            prev=prev.next
+        }
+
+        if (prev.next)
+        {
+            let removeNode = prev.next;
+            prev.next = removeNode.next;
+            this.size--;
+            return value
+        }
+        return null
+
+        
+    }
 }
 
 
@@ -105,8 +162,11 @@ list.prepend(123)
 list.prepend(1)
 
 list.append(1000)
-list.insert(555,4)
+list.insert(555,1)
+list.print()
+console.log("Removed element is", list.remove(4))
 
+console.log("removed node based on value is",list.removeValue(100))
 list.print()
 
 

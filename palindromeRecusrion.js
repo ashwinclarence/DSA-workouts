@@ -10,4 +10,6 @@ function checkPalindromeRecursion(s) {
     return checkPalindromeRecursion(s.slice(1,-1))
 }
 
-console.log(checkPalindromeRecursion("ss"))
+console.log(checkPalindromeRecursion("sbabs"))
+
+

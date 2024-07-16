@@ -23,16 +23,7 @@ class stack{
 
 
     print() {
-        if (this.isEmpty()) {
-            console.log("stack is empty")
-            
-        } else {
-            let stackValue = '';
-            for (let i = 0; i < this.stack.length ; i++){
-                stackValue += `${this.stack[i]} `;
-            }
-            console.log(stackValue)
-        }
+       console.log(this.stack)
     }
 
     peek() {

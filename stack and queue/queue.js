@@ -30,15 +30,7 @@ class Queue{
     }
 
     print() {
-        if (this.isEmpty()) {
-            return "queue is empty"
-        }
-
-        let queueValue = "";
-        for (let i = 0; i < this.queue.length; i++){
-            queueValue+=`${this.queue[i]} `
-        }
-        console.log(queueValue)
+       console.log(this.queue)
     }
 }
 

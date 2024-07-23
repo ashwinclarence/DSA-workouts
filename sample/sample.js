@@ -1,83 +1,57 @@
-
-
-
-
-class Stack{
-
+class Queue {
     constructor() {
-        this.stack = new Array();
+        this.queue = [];
     }
-
 
     isEmpty() {
-        return this.stack.length===0
+        return this.queue.length === 0;
     }
 
-
-    push(value) {
-        this.stack.push(value);
+    enqueue(value) {
+        this.queue.push(value);
     }
 
-    pop() {
+    dequeue() {
         if (this.isEmpty()) {
-            return "stack is empty"
+            return undefined; // Return undefined when the queue is empty
         }
-
-        return this.stack.pop();
+        return this.queue.shift();
     }
 
     peek() {
         if (this.isEmpty()) {
-            return "stack is empty"
+            return undefined; // Return undefined when the queue is empty
         }
-
-        return this.stack[this.stack.length - 1];
+        return this.queue[0];
     }
 
     display() {
-        console.log(this.stack)
-    }
-
-    reverse() {
-        const arr = [];
-
-        while (!this.isEmpty()) {
-            arr.push(this.pop())
-        }
-
-        this.stack = arr;
+        console.log(this.queue);
     }
 
     sort() {
-        let auxStack = new Stack();
 
+        let arr = [];
         while (!this.isEmpty()) {
-            let temp = this.pop();
-
-            while (!auxStack.isEmpty() && auxStack.peek() < temp) {
-                this.push(auxStack.pop())
-            }
-
-            auxStack.push(temp);
+            arr.push(this.dequeue());
         }
 
-        while (!auxStack.isEmpty()) {
-            this.push(auxStack.pop())
+        arr.sort((a, b) => a - b)
+        
+        for (const ele of arr) {
+            this.enqueue(ele)
         }
     }
 }
 
-const s = new Stack();
+// Example usage:
+const q = new Queue();
 
-s.push(1)
-s.push(20)
-s.push(3)
-s.push(4)
-s.push(5)
+q.enqueue(10);
+q.enqueue(32);
+q.enqueue(3);
+q.enqueue(47);
+q.enqueue(-5);
 
-s.display()
-// console.log(s.pop())
-// s.reverse()
-s.sort()
-
-s.display()
+q.sort();
+q.display(); // Output: [-5, 3, 10, 32, 47]

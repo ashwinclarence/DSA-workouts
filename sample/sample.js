@@ -1,63 +1,78 @@
-class Node {
-    constructor(value) {
-        this.value = value;
-        this.next = null;
-    }
-}
 
 
 
-class Stack {
-
+class Graph {
     constructor() {
-        this.head = null;
-        this.top = 0;
+        this.adjacentList = {};
     }
 
-
-    isEmpty() {
-        return this.top === 0;
-    }
-
-    push(value) {
-        const node = new Node(value);
-
-        if (this.isEmpty()) {
-            this.head = node;
-            this.top++;
-        } else {
-            node.next = this.head;
-            this.head = node;
-            this.top++;
+    insertVertex(value) {
+        if (!this.adjacentList[value]) {
+            this.adjacentList[value] = new Set();
         }
     }
 
-   
+    insertEdge(vertex1, vertex2) {
+        if (!this.adjacentList[vertex1]) {
+            this.insertVertex[vertex1]
+        }
+
+        if (!this.adjacentList[vertex2]) {
+            this.adjacentList[vertex2]
+        }
+
+        this.adjacentList[vertex1].add(vertex2);
+        this.adjacentList[vertex2].add(vertex1);
+    }
+
+    removeEdge(vertex1, vertex2) {
+        this.adjacentList[vertex1].delete(vertex2);
+        this.adjacentList[vertex2].delete(vertex1);
+    }
+
+    hasEdge(vertex1, vertex2) {
+        if (!this.adjacentList[vertex1]) {
+            return `cant find the ${vertex1}`
+        }
+        if (!this.adjacentList[vertex2]) {
+            return `cant find the ${vertex2}`
+        }
+        return (this.adjacentList[vertex1].has(vertex2) && this.adjacentList[vertex2].has(vertex1))
+    }
+
+    removeVertex(vertex) {
+        if (!this.adjacentList[vertex]) {
+            return
+        }
+
+        for (const adjacentVertex of this.adjacentList[vertex]) {
+            this.removeEdge(vertex, adjacentVertex)
+        }
+
+        delete this.adjacentList[vertex]
+    }
 
     display() {
-        let curr = this.head;
-
-        let value = '';
-
-        while (curr) {
-            value += `${curr.value} `;
-            curr = curr.next;
+        for (const vertex in this.adjacentList) {
+            console.log(vertex + "=>" + [...this.adjacentList[vertex]])
         }
-
-        console.log(value)
     }
 }
 
 
-const s = new Stack();
+const graph = new Graph();
 
-s.push(1)
-s.push(2)
-s.push(3)
-s.push(4)
-s.push(5);
+graph.insertVertex("A")
+graph.insertVertex("B")
+graph.insertVertex("C")
 
-s.display()
+graph.insertEdge("A", "B");
 
-// s.display()
+graph.display()
 
+// graph.removeEdge("A", "B")
+
+graph.removeVertex("A")
+graph.display()
+
+console.log("has edge ", graph.hasEdge("A", "B"))

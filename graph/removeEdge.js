@@ -1,43 +1,60 @@
 
 
 
-
-class Graph{
+class Graph {
     constructor() {
-        this.adjacencyList = {};
+        this.adjacentList = {};
     }
 
-    addVertex(value) {
-        if (!this.adjacencyList[value]) {
-            this.adjacencyList[value]=new Set()
+    insertVertex(value) {
+        if (!this.adjacentList[value]) {
+            this.adjacentList[value] = new Set();
         }
     }
 
-    addEdge(vertex1, vertex2) {
-        if (!this.adjacencyList[vertex1]) {
-            this.addVertex(vertex1)
+    insertEdge(vertex1, vertex2) {
+        if (!this.adjacentList[vertex1]) {
+            this.insertVertex[vertex1]
         }
 
-        if (!this.adjacencyList[vertex2]) {
-            this.addVertex(vertex2)
+        if (!this.adjacentList[vertex2]) {
+            this.adjacentList[vertex2]
         }
 
-        this.adjacencyList[vertex1].add(vertex2);
-        this.adjacencyList[vertex2].add(vertex1);
+        this.adjacentList[vertex1].add(vertex2);
+        this.adjacentList[vertex2].add(vertex1);
     }
 
     removeEdge(vertex1, vertex2) {
-        this.adjacencyList[vertex1].delete(vertex2);
-        this.adjacencyList[vertex2].delete(vertex1);
+        this.adjacentList[vertex1].delete(vertex2);
+        this.adjacentList[vertex2].delete(vertex1);
     }
 
     hasEdge(vertex1, vertex2) {
-        return (this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1));
+        if (!this.adjacentList[vertex1]) {
+            return `cant find the ${vertex1}`
+        }
+        if (!this.adjacentList[vertex2]) {
+            return `cant find the ${vertex2}`
+        }
+        return (this.adjacentList[vertex1].has(vertex2) && this.adjacentList[vertex2].has(vertex1))
+    }
+
+    removeVertex(vertex) {
+        if (!this.adjacentList[vertex]) {
+            return
+        }
+
+        for (const adjacentVertex of this.adjacentList[vertex]) {
+            this.removeEdge(vertex, adjacentVertex)
+        }
+
+        delete this.adjacentList[vertex]
     }
 
     display() {
-        for (const vertex in this.adjacencyList) {
-            console.log(vertex + "=>" + [...this.adjacencyList[vertex]]);
+        for (const vertex in this.adjacentList) {
+            console.log(vertex + "=>" + [...this.adjacentList[vertex]])
         }
     }
 }
@@ -45,18 +62,17 @@ class Graph{
 
 const graph = new Graph();
 
-graph.addVertex("A")
-graph.addVertex("B")
-graph.addVertex("C")
+graph.insertVertex("A")
+graph.insertVertex("B")
+graph.insertVertex("C")
 
-graph.addEdge("A", "B");
+graph.insertEdge("A", "B");
 
-graph.display();
+graph.display()
 
-console.log(graph.hasEdge("A", "B"));
+// graph.removeEdge("A", "B")
 
-graph.removeEdge("A","B")
-graph.removeEdge("A", "C");
+graph.removeVertex("A")
+graph.display()
 
-
-graph.display();
+console.log("has edge ", graph.hasEdge("A", "B"))

@@ -1,15 +1,11 @@
 
 
-
-
-
 class Node{
     constructor() {
         this.children = {};
         this.isEndOfWord = false;
     }
 }
-
 
 class Trie{
     constructor() {
@@ -23,6 +19,7 @@ class Trie{
             if (!node.children[char]) {
                 node.children[char] = new Node();
             }
+
             node = node.children[char];
         }
 
@@ -38,33 +35,33 @@ class Trie{
             }
             node=node.children[char]
         }
-
-        return node.isEndOfWord;
+        return node.isEndOfWord
     }
 
-    startsWith(prefix) {
+    startsWith(word) {
         let node = this.root;
 
-        for (const char of prefix) {
+        for (const char of word) {
             if (!node.children[char]) {
                 return false
             }
-            node=node.children[char]
+            node = node.children[char];
         }
         return true
     }
 
-  
     delete(word) {
         this.deleteHelper(this.root,word,0)
     }
 
     deleteHelper(node, word, index) {
+        
         if (word.length === index) {
             if (!node.isEndOfWord) {
-                return false;
+                return false
             }
             node.isEndOfWord = false;
+
             return Object.keys(node.children).length===0
         }
 
@@ -74,28 +71,30 @@ class Trie{
             return false
         }
 
-        let shouldDeleteChild = this.deleteHelper(node.children[char], word, index+1)
-        
+        let shouldDeleteChild = this.deleteHelper(node.children[char], word, index + 1);
+
         if (shouldDeleteChild) {
             delete node.children[char];
 
             return Object.keys(node.children).length===0 && !node.isEndOfWord
         }
-
         return false
     }
-
-
-    
 }
 
 
 const trie = new Trie();
 
-trie.insert("HELLO");
-trie.insert("HEI");
+trie.insert("HELLO")
+trie.insert("HELMET")
+trie.insert("MANGO")
+trie.insert("MAN")
 
-trie.insert("MANGO");
+
+console.log(trie.search("MAN"))
 console.log(trie.search("HELLO"))
-trie.delete("HELLO")
-console.log(trie.search("HELLO"))
+
+console.log(trie.startsWith("A"))
+
+trie.delete("MAN")
+console.log(trie.search("MAN"))

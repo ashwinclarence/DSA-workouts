@@ -1,9 +1,10 @@
 
 
 
-class Graph {
+class Graph{
     constructor() {
         this.adjacentList = {};
+
     }
 
     insertVertex(vertex) {
@@ -14,11 +15,11 @@ class Graph {
 
     insertEdge(vertex1, vertex2) {
         if (!this.adjacentList[vertex1]) {
-            this.insertVertex(vertex1);
+            this.insertVertex(vertex1)
         }
 
         if (!this.adjacentList[vertex2]) {
-            this.insertVertex(vertex2)
+            this.insertVertex(vertex2);
         }
 
         this.adjacentList[vertex1].add(vertex2);
@@ -27,11 +28,11 @@ class Graph {
 
     removeEdge(vertex1, vertex2) {
         if (!this.adjacentList[vertex1]) {
-            return "vertex1 is not present";
+            return "there is no vertex1";
         }
 
         if (!this.adjacentList[vertex2]) {
-            return "vertex2 is not defined";
+            return "there is no vertex2";
         }
 
         this.adjacentList[vertex1].delete(vertex2);
@@ -40,7 +41,7 @@ class Graph {
 
     removeVertex(vertex) {
         if (!this.adjacentList[vertex]) {
-            return 
+            return "there is no vertex";
         }
 
         for (const ele of this.adjacentList[vertex]) {
@@ -51,7 +52,6 @@ class Graph {
     }
 
     hasEdge(vertex1, vertex2) {
-        
         if (!this.adjacentList[vertex1]) {
             return "there is no vertex1";
         }
@@ -60,15 +60,16 @@ class Graph {
             return "there is no vertex2";
         }
 
-        return (this.adjacentList[vertex1].has(vertex2) && this.adjacentList[vertex2].has(vertex1));
+        return (this.adjacentList[vertex1].has(vertex2)&& this.adjacentList[vertex2].has(vertex1))
     }
 
     display() {
         for (const vertex in this.adjacentList) {
-            console.log(vertex + "=>" + [...this.adjacentList[vertex]]);
+            console.log(vertex+"=>"+[...this.adjacentList[vertex]])
         }
     }
-    bfs(start) {
+
+    BFS(start) {
         let queue = [start];
         let result = [];
         let visited = new Set();
@@ -79,20 +80,21 @@ class Graph {
         while (queue.length) {
             currentVertex = queue.shift();
             result.push(currentVertex);
+
             this.adjacentList[currentVertex].forEach((ele) => {
                 if (!visited.has(ele)) {
                     visited.add(ele);
-                    queue.push(ele)
+                    queue.push(ele);
                 }
             })
         }
-        return result
+        return result;
     }
 
     DFS(start) {
         let stack = [start];
-        let visited = new Set();
         let result = [];
+        let visited = new Set();
         let currentVertex;
 
         visited.add(start);
@@ -104,24 +106,40 @@ class Graph {
             this.adjacentList[currentVertex].forEach((ele) => {
                 if (!visited.has(ele)) {
                     visited.add(ele);
-                    stack.push(ele)
+                    stack.push(ele);
                 }
             })
-        }
-        return result
+        } 
+        return result;
     }
 
+    findSecondNode() {
+        let vertex = Object.keys(this.adjacentList);
+        
+        if (vertex.length < 2) {
+            return "there is no second vertex";
+        }
+
+        return vertex[1]
+    }
 }
 
 
 const graph = new Graph();
 
-graph.insertEdge("B","A")
-graph.insertEdge("B","C")
-graph.insertEdge("M","A")
+graph.insertVertex("A")
+graph.insertVertex("M");
+graph.insertVertex("B")
+graph.insertVertex("C")
+
+graph.insertEdge("A","B")
+graph.insertEdge("A","C")
+graph.insertEdge("A", "M");
 
 
 graph.display()
 
-console.log(graph.bfs("A"))
+console.log(graph.BFS("A"))
 console.log(graph.DFS("A"))
+
+console.log(graph.findSecondNode())

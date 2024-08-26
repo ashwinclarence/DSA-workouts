@@ -15,7 +15,7 @@ function insertionSort(arr) {
     }    
 }
 
-
+ 
 const arr = [1, 6, 3, 0, 2, 4, 5, -1, 100, -10]
 insertionSort(arr)
 

@@ -143,12 +143,21 @@ class Tree{
         return root
     }
 
+    //height of a tree is to count from the root to until it shows null to the end(last or final node)
     depth(root) {
         if (root === null) {
             return 0;
         }
 
         return 1+Math.max(this.depth(root.left),this.depth(root.right))
+    }
+
+    //depth of a  specific or given node (from the given data until the root)
+    depthOfNode(root,data,depth=0){
+        if(root===null) return -1; //node  not found
+        if(root.value===data) return depth; //return depth of the node here
+        if(data<root.value) return depthNode(root.left, data, depth+1);
+        if(data>root.value) return depthNode(root.right, data, depth+1);
     }
 
 }
@@ -162,3 +171,5 @@ bst.insert(3)
 bst.insert(7)
 
 console.log(bst.depth(bst.root))
+const nodeDepth = bst.depthOfNode(bst.root, 7);
+console.log('Depth of node with value 7:', nodeDepth); 

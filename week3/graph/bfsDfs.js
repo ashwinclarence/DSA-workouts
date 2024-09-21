@@ -57,7 +57,7 @@ class Graph {
         }
     }
 
-    bfs(start) {
+    bfs(start) {4
         const queue = [start];
         const result = [];
         const visited = new Set();

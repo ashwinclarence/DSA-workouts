@@ -121,7 +121,11 @@ class LinkedList{
         let curr = this.head;
         while (curr) {
             let next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
+        this.head = prev;
     }
 }
 
@@ -133,6 +137,9 @@ ll.prepend(2)
 ll.prepend(3)
 ll.prepend(4)
 ll.prepend(5)
+ll.prepend(8)
+ll.prepend(9)
+ll.prepend(10)
 
 console.log(ll.removeFromEnd());
 console.log(ll.removeFromStart());
@@ -142,6 +149,8 @@ console.log(ll.removeUsingIndex(2));
 console.log(ll.search(4));
 
 
+ll.display()
+ll.reverse()
 ll.display()
 
 
